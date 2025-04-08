@@ -1,0 +1,84 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Davivienda API",
+    "description": "API for banking operations in Davivienda",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/accounts/{accountId}": {
+      "get": {
+        "summary": "Get Account Information",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account details returned",
+            "schema": {
+              "$ref": "#/definitions/Account"
+            }
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "post": {
+        "summary": "Create a new transaction",
+        "parameters": [
+          {
+            "name": "transaction",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Transaction created successfully"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Account": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "accountType": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "transactionType": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

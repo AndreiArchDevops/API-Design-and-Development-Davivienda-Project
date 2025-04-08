@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="http://example.com/transactionService"
+             targetNamespace="http://example.com/transactionService">
+    <message name="TransactionRequest">
+        <part name="accountId" type="xsd:string"/>
+        <part name="transactionType" type="xsd:string"/>
+        <part name="amount" type="xsd:decimal"/>
+    </message>
+
+    <message name="TransactionResponse">
+        <part name="status" type="xsd:string"/>
+        <part name="transactionId" type="xsd:string"/>
+    </message>
+
+    <portType name="TransactionPortType">
+        <operation name="processTransaction">
+            <input message="tns:TransactionRequest"/>
+            <output message="tns:TransactionResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="TransactionBinding" type="tns:TransactionPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="processTransaction">
+            <soap:operation soapAction="http://example.com/processTransaction"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="TransactionService">
+        <port name="TransactionPort" binding="tns:TransactionBinding">
+            <soap:address location="http://localhost:8080/transactionService"/>
+        </port>
+    </service>
+</definitions>
